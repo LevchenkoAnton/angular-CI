@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, by, element, logging } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -11,6 +11,14 @@ describe('workspace-project App', () => {
   it('should display welcome message', () => {
     page.navigateTo();
     expect(page.getTitleText()).toEqual('angular-CI app is running!');
+  });
+
+  it('should check markup', async () => {
+    const diffPixels = await browser.screenshotExtension.checkElementScreenshot(
+      element(by.css('.content')),
+      'content'
+    );
+    expect(diffPixels).toEqual(0);
   });
 
   afterEach(async () => {
